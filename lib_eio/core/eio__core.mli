@@ -396,6 +396,12 @@ module Fiber : sig
   val without_binding : 'a key -> (unit -> 'b) -> 'b
   (** [with_binding key value fn] runs [fn] with any binding for [key] removed.
       *)
+
+  (* XXX: NBT *)
+  val get_all_bindings : unit -> Hmap.t
+  val with_all_bindings : Hmap.t -> (unit -> 'b) -> 'b
+  val unscoped_set : 'a key -> 'a -> unit
+
 end
 
 (** @canonical Eio.Exn *)

@@ -295,6 +295,20 @@ let without_binding var fn =
   let ctx = Effect.perform Cancel.Get_context in
   Cancel.Fiber_context.with_vars ctx (Hmap.rem var ctx.vars) fn
 
+let get_all_bindings () = 
+  (* XXX: NBT *)
+  let ctx = Effect.perform Cancel.Get_context in ctx.vars
+
+let with_all_bindings vars fn =
+  (* XXX: NBT *)
+  let ctx = Effect.perform Cancel.Get_context in
+  Cancel.Fiber_context.with_vars ctx vars fn
+
+let unscoped_set k v = 
+  let ctx = Effect.perform Cancel.Get_context in
+  ctx.vars <- (Hmap.add k v ctx.vars)
+
+
 (* Coroutines.
 
    [fork_coroutine ~sw fn] creates a new fiber for [fn]. [fn] immediately suspends, setting its state to
