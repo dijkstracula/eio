@@ -706,6 +706,14 @@ module Private : sig
 
     val get_error : t -> exn option
     (** [get_error t] is [Cancel.get_error (cancellation_context t)] *)
+
+    val get_vars : unit -> Hmap.t
+    (** [get_vars ()] is the fiber-local variable mapping for the current fiber. *)
+
+    val with_vars : t -> Hmap.t -> (unit -> 'a) -> 'a
+    (** [with_vars t vars f] evaluates [f] on the fiber associated with [t], with 
+        local state mapping [vars]. *)
+
   end
 
   module Effects : sig
